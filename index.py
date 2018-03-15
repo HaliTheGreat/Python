@@ -1,7 +1,5 @@
 import socket
 
-from Tools.scripts.treesync import *
-
 
 def Main():
     host = "127.0.0.1"
