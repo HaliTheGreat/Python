@@ -4,11 +4,20 @@ import os
 
 def Main():
     os.system('clear')
-    host = "127.0.0.1"
-    port = 8675
+
+    print('Settings:')
+
+    host = input('Host (default 127.0.0.1): ')
+    if host == "":
+        host = "127.0.0.1"
+
+    port = input("Port (default 8675): ")
+    if port == "":
+        port = 8675
 
     s = socket.socket()
     s.connect((host, port))
+
     nickname = input('Unique Identifier: ')
     message = ""
     while message != 'quit':
