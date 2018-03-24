@@ -7,7 +7,7 @@ def Main():
 
     print('Settings:')
 
-    host = input('Host (default 127.0.0.1): ')
+    host = str(input('Host (default 127.0.0.1): '))
     if host == "":
         host = "127.0.0.1"
 
