@@ -7,8 +7,8 @@ def Main():
 
     s = socket.socket()
     s.bind((host, port))
+    s.listen(1)
     while True:
-        s.listen(1)
         c, addr = s.accept()
         print("Connection incoming: " + str(addr))
         while True:
@@ -23,7 +23,8 @@ def Main():
             byter = data.encode()
             c.sendall(byter)
         c.close()
-    c.close()
+    c.close
+
 
 if __name__ == '__main__':
     Main()

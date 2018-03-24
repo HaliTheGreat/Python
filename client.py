@@ -1,6 +1,7 @@
 import socket
 import os
 
+
 def Main():
     os.system('clear')
     host = "127.0.0.1"
@@ -21,6 +22,7 @@ def Main():
         os.system('clear')
         print(StringData)
     s.close()
+
 
 if __name__ == '__main__':
     Main()
