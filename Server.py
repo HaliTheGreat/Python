@@ -10,7 +10,11 @@ def Main():
     host = '127.0.0.1'
     print('Host: ' + host)
     port = input("Port (default 8675): ")
-
+    if port != "":
+        port = int()
+    if port == 0:
+        print('Invalid port')
+        port()
     if port == "":
         port = 8675
 
@@ -25,7 +29,6 @@ def Main():
     while True:
         c, addr = s.accept()
         print("Connection incoming: " + str(addr))
-        c.send('Connected!')
         while True:
             data = c.recv(2048)
             data = data.decode('utf-8')
@@ -36,6 +39,7 @@ def Main():
             data = StrData
             print("Sending user data: " + StrData)
             byter = data.encode()
+            print(byter)
             c.sendall(byter)
         c.close()
     c.close

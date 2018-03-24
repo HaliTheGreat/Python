@@ -11,7 +11,7 @@ def Main():
     if host == "":
         host = "127.0.0.1"
 
-    port = input("Port (default 8675): ")
+    port = int(input("Port (default 8675): "))
     if port == "":
         port = 8675
 
