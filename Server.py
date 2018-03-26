@@ -22,13 +22,18 @@ hostname = socket.gethostbyname(socket.gethostname())
 global chat
 chat = ""
 def clientConnect(c, addr):
+    global prevChat
+    prevChat = ""
     while True:
         global StrData
         global chat
         data = c.recv(2048)
         data = data.decode('utf-8')
         StrData = str(data)
-        chat = chat + "\n" + StrData
+        #WORK ON PREV TOMORROW
+        if prevChat != "":
+            if prevChat != chat:
+                chat = chat + "\n" + StrData
         
 
 def clientChatUpdate(c, addr):
@@ -36,8 +41,7 @@ def clientChatUpdate(c, addr):
         global chat
         data = chat
         byter = data.encode()
-        os.system('cls')
-        print(chat)
+        print(StrData)
         c.sendall(byter)
 
 

@@ -28,9 +28,10 @@ print('Connected to ' + host + ':' + str(port))
 nickname = input('Unique Identifier: ')
 
 def updateChat():
+    global prevData
+    prevData = ""
     while True:
         global s
-        global prevData
         data = s.recv(2048)
         if prevData != "":
             if data != prevData:
