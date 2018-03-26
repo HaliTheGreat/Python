@@ -30,11 +30,14 @@ nickname = input('Unique Identifier: ')
 def updateChat():
     while True:
         global s
+        global prevData
         data = s.recv(2048)
-        StringData = data.decode()
-        os.system('cls')
-        print(StringData)
-        time.sleep(10)
+        if prevData != "":
+            if data != prevData:
+                StringData = data.decode()
+                os.system('cls')
+                print(StringData)
+        prevData = data
 
 threading._start_new_thread(updateChat, () )
 
