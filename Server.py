@@ -12,18 +12,18 @@ if port != "":
     port = int(port)
 elif port == "":
     port = 8675
-while True:
-    s = socket.socket()
-    s.bind((host, port))
-    s.listen(1)
+s = socket.socket()
+s.bind((host, port))
+s.listen(1)
 
-    hostname = socket.gethostbyname(socket.gethostname())
-    os.system('cls')
-    print('Server started on ' + hostname + ":" + str(port))
-    c, addr = s.accept()
-    print("Connection incoming: " + str(addr))
+hostname = socket.gethostbyname(socket.gethostname())
+
+global chat
+chat = ""
 
 def clientConnect(c, addr):
+    while True:
+        global chat
         data = c.recv(2048)
         data = data.decode('utf-8')
         StrData = str(data)
@@ -31,7 +31,12 @@ def clientConnect(c, addr):
         byter = data.encode()
         print(StrData)
         c.send(byter)
+        chat = chat + "\n" + StrData
+        print(chat)
 
+
+print('Server started on ' + hostname + ":" + str(port))
 while True:
-       c, addr = s.accept()     # Establish connection with client.
-       threading._start_new_thread(clientConnect(c,addr))
+    c, addr = s.accept()     # Establish connection with client.
+    threading._start_new_thread(clientConnect, (c, addr))
+    print("Connection incoming: " + str(addr))
