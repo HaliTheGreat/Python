@@ -1,33 +1,28 @@
 import socket
 import os
+import threading
 
+os.system('cls')
 
-def Main():
-    os.system('cls')
+print('Settings:')
 
-    print('Settings:')
-
-    host = '127.0.0.1'
-    print('Host: ' + host)
-    port = input("Port (default 8675): ")
-    if port != "":
-        port = int()
-    if port == 0:
-        print('Invalid port')
-        port()
-    if port == "":
-        port = 8675
-
+host = socket.gethostname()
+port = input("Port (default 8675): ")
+if port != "":
+    port = int(port)
+elif port == "":
+    port = 8675
+while True:
     s = socket.socket()
     s.bind((host, port))
     s.listen(1)
 
     hostname = socket.gethostbyname(socket.gethostname())
-
+    os.system('cls')
     print('Server started on ' + hostname + ":" + str(port))
     c, addr = s.accept()
     print("Connection incoming: " + str(addr))
-    
+
     while True:
         data = c.recv(2048)
         data = data.decode('utf-8')
@@ -38,8 +33,3 @@ def Main():
         byter = data.encode()
         print(StrData)
         c.send(byter)
-    c.close
-Main()
-
-if __name__ == '__main__':
-    Main()

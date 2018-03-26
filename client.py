@@ -1,5 +1,6 @@
 import socket
 import os
+import threading
 
 
 def Main():
@@ -7,9 +8,9 @@ def Main():
 
     print('Settings:')
 
-    host = str(input('Host (default 127.0.0.1): '))
+    host = str(input('Host (default localhost): '))
     if host == "":
-        host = "127.0.0.1"
+        host = socket.gethostname()
 
     port = input("Port (default 8675): ")
     if port != "":
