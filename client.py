@@ -1,6 +1,7 @@
 import socket
 import os
 import threading
+import time
 
 
 os.system('cls')
@@ -28,15 +29,16 @@ nickname = input('Unique Identifier: ')
 
 def updateChat():
     while True:
+        global s
         data = s.recv(2048)
         StringData = data.decode()
         os.system('cls')
         print(StringData)
+        time.sleep(10)
 
-threading._start_new_thread(updateChat,  )
+threading._start_new_thread(updateChat, () )
 
 message = ""
-global message
 while message != 'quit':
     print('Type to send message, "quit" to quit.')
     message = input('> ')
