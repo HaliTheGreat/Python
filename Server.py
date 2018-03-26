@@ -34,15 +34,15 @@ def clientConnect(c, addr):
         if prevChat != "":
             if prevChat != chat:
                 chat = chat + "\n" + StrData
+                data = chat
+                byter = data.encode()
+                print(StrData)
+                c.sendall(byter)
+            else:
+                prevChat = chat
+        else:
+            prevChat = chat
         
-
-def clientChatUpdate(c, addr):
-    while True:
-        global chat
-        data = chat
-        byter = data.encode()
-        print(StrData)
-        c.sendall(byter)
 
 
 
@@ -51,6 +51,4 @@ print('Server started on ' + hostname + ":" + str(port))
 while True:
     c, addr = s.accept()     # Establish connection with client.
     threading._start_new_thread(clientConnect, (c, addr))
-    time.sleep(1)
-    threading._start_new_thread(clientChatUpdate, (c, addr))
     print("Connection incoming: " + str(addr))
