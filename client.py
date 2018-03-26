@@ -33,8 +33,13 @@ while message != 'quit':
     output = "<" + nickname + ">: " + message
     bytern = output.encode()
     s.sendall(bytern)
-    data = s.recv(2048)
-    StringData = data.decode()
-    os.system('cls')
-    print(StringData)
 s.close()
+
+def updateChat():
+    while True:
+        data = s.recv(2048)
+        StringData = data.decode()
+        os.system('cls')
+        print(StringData)
+
+threading._start_new_thread(updateChat, )

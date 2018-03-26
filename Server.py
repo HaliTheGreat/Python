@@ -27,12 +27,12 @@ def clientConnect(c, addr):
         data = c.recv(2048)
         data = data.decode('utf-8')
         StrData = str(data)
-        data = StrData
+        chat = chat + "\n" + StrData
+        data = chat
         byter = data.encode()
         print(StrData)
         c.send(byter)
-        chat = chat + "\n" + StrData
-        print(chat)
+        
 
 
 print('Server started on ' + hostname + ":" + str(port))
