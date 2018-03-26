@@ -23,13 +23,15 @@ while True:
     c, addr = s.accept()
     print("Connection incoming: " + str(addr))
 
-    while True:
+def clientConnect(c, addr):
         data = c.recv(2048)
         data = data.decode('utf-8')
         StrData = str(data)
-        if not data:
-            break
         data = StrData
         byter = data.encode()
         print(StrData)
         c.send(byter)
+
+while True:
+       c, addr = s.accept()     # Establish connection with client.
+       threading._start_new_thread(clientConnect(c,addr))
