@@ -26,21 +26,24 @@ s.connect((host, port))
 print('Connected to ' + host + ':' + str(port))
 nickname = input('Unique Identifier: ')
 
-message = ""
 def updateChat():
-    global message
-    while message != 'quit':
-        print('Type to send message, "quit" to quit.')
-        message = input('> ')
-        output = "<" + nickname + ">: " + message
-        bytern = output.encode()
-        s.sendall(bytern)
-    s.close()
+    while True:
+        data = s.recv(2048)
+        StringData = data.decode()
+        os.system('cls')
+        print(StringData)
 
-threading._start_new_thread(updateChat, () )
+threading._start_new_thread(updateChat,  )
 
-while True:
-    data = s.recv(2048)
-    StringData = data.decode()
-    os.system('cls')
-    print(StringData)
+message = ""
+global message
+while message != 'quit':
+    print('Type to send message, "quit" to quit.')
+    message = input('> ')
+    output = "<" + nickname + ">: " + message
+    bytern = output.encode()
+    s.sendall(bytern)
+s.close()
+
+
+
