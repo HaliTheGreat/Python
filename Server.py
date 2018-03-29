@@ -33,6 +33,7 @@ def clientConnect(c, addr):
 
 def clientChatUpdate(c, addr):
     while True:
+        time.sleep(1)
         global chat
         data = chat
         byter = data.encode()
