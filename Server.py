@@ -41,6 +41,7 @@ def clientConnect(c, addr):
             else:
                 prevChat = chat
         else:
+            chat = StrData
             prevChat = chat
         
 
