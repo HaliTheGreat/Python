@@ -1,5 +1,5 @@
-import socket
 import os
+import socket
 import threading
 import time
 
@@ -27,26 +27,24 @@ s.connect((host, port))
 print('Connected to ' + host + ':' + str(port))
 nickname = input('Unique Identifier: ')
 
-def sendMessage():
-    message = ""
-    while True:
-        message = input('Type to send message, "quit" to quit. \n >: ')
-        if message != 'quit':
-            outbox = "<" + nickname + ">: " + message
-            send = outbox.encode()
-            s.send(send)
-        else:
-            exit()
+print('Type to send message, "quit" to quit.')
 
 def updateChat():
     lastRec = ""
     while True:
         rec = s.recv(20480)
-        if lastRec != rec:
-            lastRec = rec
-            rec = rec.decode()
-            os.system('cls')
-            print(rec)
+        if lastRec != undefined:
+            if lastRec != rec:
+                lastRec = rec
+                rec = rec.decode()
+                os.system('cls')
+                print(rec)
 
-threading._start_new_thread(updateChat, () )
-sendMessage()
+#while True:
+#        message = input('Type to send message, "quit" to quit. \n >: ')
+#        if message != 'quit':
+#            outbox = "<" + nickname + ">: " + message
+#            send = outbox.encode()
+#            s.send(send)
+#        else:
+#            exit()

@@ -13,43 +13,34 @@ if port != "":
     port = int(port)
 elif port == "":
     port = 8675
+
 s = socket.socket()
 s.bind((host, port))
 s.listen(1)
 
 hostname = socket.gethostbyname(socket.gethostname())
 
-global chat
-chat = ""
-def clientConnect(c, addr):
-    global prevChat
-    prevChat = ""
+history = ""
+clients = set()
+def clientAccepted(c, addr):
+    clients.add(c)
+    global history
+    global lastRec
+    lastRec = ""
     while True:
-        global StrData
-        global chat
-        data = c.recv(2048)
-        data = data.decode('utf-8')
-        StrData = str(data)
-        #WORK ON PREV TOMORROW
-        if prevChat != "":
-            if prevChat != chat:
-                chat = chat + "\n" + StrData
-                data = chat
-                byter = data.encode()
-                print(StrData)
-                c.sendall(byter)
-            else:
-                prevChat = chat
-        else:
-            chat = StrData
-            prevChat = chat
-        
+        rec = c.recv(20480)
+        rec = rec.decode('utf-8')
+        if rec != lastRec:
+            history = history + "\n" + str(rec)
+            lastRec = rec
+            threading._start_new_thread(updateClients, (c, addr, history) )
 
-
-
-print('Server started on ' + hostname + ":" + str(port))
+def updateClients(c, addr, history):
+    sentMessage = history.encode()
+    c.send(sentMessage)
 
 while True:
-    c, addr = s.accept()     # Establish connection with client.
-    threading._start_new_thread(clientConnect, (c, addr))
-    print("Connection incoming: " + str(addr))
+    c, addr = s.accept()
+    print('Connection incoming from ' + str(addr) )
+    print(str(clients))
+    threading._start_new_thread(clientAccepted, (c, addr) )
