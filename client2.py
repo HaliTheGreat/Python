@@ -33,13 +33,13 @@ def updateChat():
     lastRec = ""
     while True:
         rec = s.recv(20480)
-        if lastRec != undefined:
+        if lastRec != "":
             if lastRec != rec:
                 lastRec = rec
                 rec = rec.decode()
                 os.system('cls')
                 print(rec)
-
+updateChat()
 #while True:
 #        message = input('Type to send message, "quit" to quit. \n >: ')
 #        if message != 'quit':
