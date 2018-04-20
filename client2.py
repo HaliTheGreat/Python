@@ -31,20 +31,29 @@ print('Type to send message, "quit" to quit.')
 
 def updateChat():
     lastRec = ""
+    rec = ""
+    rec = rec.encode()
+    chat = ""
     while True:
-        rec = s.recv(20480)
+        rec = s.recv(2048)
+        rec = rec.decode()
         if lastRec != "":
             if lastRec != rec:
                 lastRec = rec
-                rec = rec.decode()
                 os.system('cls')
-                print(rec)
-updateChat()
-#while True:
-#        message = input('Type to send message, "quit" to quit. \n >: ')
-#        if message != 'quit':
-#            outbox = "<" + nickname + ">: " + message
-#            send = outbox.encode()
-#            s.send(send)
-#        else:
-#            exit()
+                chat = chat + "\n" + rec
+                print(chat)
+        else:
+            print(rec)
+        lastRec = rec
+        
+threading._start_new_thread(updateChat, () )
+
+while True:
+        message = input('Type to send message, "quit" to quit. \n >: ')
+        if message != 'quit':
+            outbox = "<" + nickname + ">: " + message
+            send = outbox.encode()
+            s.send(send)
+        else:
+            exit()
