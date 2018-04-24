@@ -22,12 +22,9 @@ hostname = socket.gethostbyname(socket.gethostname())
 
 history = ""
 
-def clientRecieve(c, addr):
+def clientAccepted(c, addr):
     history = c.recv(2048)
-
-def clientAccepted(c, addr, chat):
-    threading._start_new_thread(clientRecieve, (c, addr) )
-    while True:
+    threading._start_new_thread(updateClients, (c, addr, history))
 
 def updateClients(c, addr, history):
     while True:
