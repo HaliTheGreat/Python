@@ -1,4 +1,5 @@
 import socket
+import socketserver
 import os
 import threading
 import time
@@ -23,12 +24,17 @@ hostname = socket.gethostbyname(socket.gethostname())
 history = ""
 
 def clientAccepted(c, addr):
-    history = c.recv(2048)
-    threading._start_new_thread(updateClients, (c, addr, history))
+    threading._start_new_thread(updateClients, (c, addr))
+    threading._start_new_thread(recieveMessages, (c, addr))
 
-def updateClients(c, addr, history):
+def recieveMessages(c, addr):
+    global history
     while True:
-        sentMessage = history.encode()
+        history = c.recv(2048)
+
+def updateClients(c, addr):
+    while True:
+        sentMessage = history.encode("utf-8")
         c.send(sentMessage)
 
 while True:
