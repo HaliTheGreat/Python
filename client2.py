@@ -27,8 +27,6 @@ s.connect((host, port))
 print('Connected to ' + host + ':' + str(port))
 nickname = input('Unique Identifier: ')
 
-print('Type to send message, "quit" to quit.')
-
 def updateChat():
     lastRec = ""
     rec = ""
@@ -37,10 +35,11 @@ def updateChat():
     while True:
         rec = s.recv(2048)
         rec = rec.decode()
+        print(lastRec)
+        print(rec)
         if lastRec != "":
             if lastRec != rec:
                 lastRec = rec
-                os.system('cls')
                 chat = chat + "\n" + rec
                 print(chat)
         else:
@@ -50,6 +49,7 @@ def updateChat():
 threading._start_new_thread(updateChat, () )
 
 while True:
+        """os.system('cls')"""
         message = input('Type to send message, "quit" to quit. \n >: ')
         if message != 'quit':
             outbox = "<" + nickname + ">: " + message
