@@ -23,9 +23,6 @@ hostname = socket.gethostbyname(socket.gethostname())
 
 history = " "
 update = "0"
-def clientAccepted(c, addr):
-    threading._start_new_thread(recieveMessages, (c, addr))
-    threading._start_new_thread(updateClients, (c, addr))
 
 def recieveMessages(c, addr):
     global history
@@ -34,25 +31,23 @@ def recieveMessages(c, addr):
         history = c.recv(2048)
         print(history)
         update = 1
+        print(update)
 
 def updateClients(c, addr):
-    global update
     global history
     print("Update clients")
     while True:
-        if update != 0:
+        global update
+        if update == 1:
+            update = 0
+            print(update)
+            history = str(history)
             sentMessage = history.encode("utf-8")
             c.send(sentMessage)
-            update = 0
             print("Sent!")
-
-def debug():
-    while True:
-        print(update)
-
-threading._start_new_thread(debug, ())
 
 while True:
     c, addr = s.accept()
     print('Connection incoming from ' + str(addr) )
-    threading._start_new_thread(clientAccepted, (c, addr) )
+    threading._start_new_thread(recieveMessages, (c, addr))
+    threading._start_new_thread(updateClients, (c, addr))

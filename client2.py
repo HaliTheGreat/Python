@@ -14,7 +14,7 @@ if host == "":
 
 port = input("Port (default 8675): ")
 if port != "":
-    port = int()
+    port = int(port)
 if port == 0:
     print('Invalid port')
     port()
@@ -40,7 +40,7 @@ def updateChat():
         if lastRec != "":
             if lastRec != rec:
                 lastRec = rec
-                chat = chat + "\n" + rec
+                chat = chat + "\n" + rec.decode('utf-8')
                 print(chat)
         else:
             print(rec)
@@ -49,7 +49,6 @@ def updateChat():
 threading._start_new_thread(updateChat, () )
 
 while True:
-        """os.system('cls')"""
         message = input('Type to send message, "quit" to quit. \n >: ')
         if message != 'quit':
             outbox = "<" + nickname + ">: " + message
